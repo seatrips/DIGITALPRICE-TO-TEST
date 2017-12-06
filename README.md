@@ -37,7 +37,9 @@ After finished, you should see a new file named "digitalpriced" in your digitalp
 ```
 ./digitalpriced -daemon
 ```
-Your should get "DigitalPrice server starting". When you start the wallet for the first time a new folder is created with the chain, the conf file and so in. This folder is located in the same repository as the DigitalPrice one. For example if your DigitalPrice folder path is /home/digitalprice , then the new folder path is /home/.dprice (sometimes its located in the /root folder). You won't see it in WinSCP so you need to make hidden folders visible by clicking on the small icon at the bottom right of WinSCP.
+- Your should get "DigitalPrice server starting". 
+When you start the wallet for the first time a new folder is created with the chain, the conf file and so in. This folder is located in the same repository as the DigitalPrice one. For example if your DigitalPrice folder path is /home/digitalprice , then the new folder path is /home/.dprice (sometimes its located in the /root folder). 
+You won't see it in WinSCP so you need to make hidden folders visible by clicking on the small icon at the bottom right of WinSCP.
 - Now you need to configure your wallet, first we need to close the wallet and edit the conf file:
 ```
 ./digitalpriced stop 
@@ -64,19 +66,19 @@ You can check the progress of the syncronization of the wallet by typing this co
 ```
 ./digitalpriced getmininginfo
 ```
-In this guide, we will show how to configure your masternodes to be controlled remotely with a cold wallet, since it's easier and safer.
+## In this guide, we will show how to configure your masternodes to be controlled remotely with a cold wallet, since it's easier and safer.
 
 - Open your Windows wallet, go into the console and type: 
 ```
 masternode genkey
 ```
-Copy the result in a file. This is your masternode private key. You will need to use this string later.
-Create a new address to receive your 25000 DPs, typing: 
+- Copy the result in a file. This is your masternode private key. You will need to use this string later.
+- Create a new address to receive your 25000 DPs, typing: 
 ```
 getaccountaddress mn01
 ```
 - Send exactly 25000 DP to the address you just created and wait for 10 confirmations. You have to close the wallet now. It will be reopen later.
-Now you need to edit the digitalprice.conf of your local wallet. 
+- Now you need to edit the digitalprice.conf of your local wallet. 
 For Windows users the file is located in C:\Users\your_name\AppData\Roaming\dprice. 
 To see this folder you need to make hidden folders visible. 
 If you do not have the digitalprice.conf file in your folder, create a txt file name "digitalprice.txt" then change the extension to digitalprice.conf. We need to edit this file, just copy:
@@ -94,7 +96,7 @@ logtimestamps=1
 ```
 ./digitalpriced stop
 ```
-Open the digitalprice.conf in your VPS, located in the .dprice folder. Fill the file as below:
+- Open the digitalprice.conf in your VPS, located in the .dprice folder. Fill the file as below:
 ```
 rpcuser=SomeRandomString 
 rpcpassword=EvenLongerRandomString 
@@ -109,17 +111,16 @@ masternode=1
 masternodeaddr=XXX.XXX.XXX.XXX:9999 
 masternodeprivkey=XXXXXXXXXXXXXXXXXXXXXXXXXX 
 ```
-- This one must be exactly the same as the digitalprice.conf of your local wallet.- 
-port:
-Select an open port, I recommend you to use 9999 
-masternodeaddr:
-You have to put your VPS ip and the port. 
-masternodeprivkey:
-It's the string you got from the "masternode genkey" command before. 
-
-- Save the file. In the same folder, delete your wallet.dat (if it's an empty wallet there is no problem, else backup it then delete), the txlvldb folder and the blk00001.dat using WinSCP.
-Keep WinSCP open, we gonna copy some files. 
-Go back to your Windows dprice folder where you edited the first digitalprice.conf and drag the txlvldb folder and the blk00001.dat file to your .dprice VPS folder. 
+- This one must be exactly the same as the digitalprice.conf of your local wallet.
+```
+port: Select an open port, I recommend you to use 9999 
+masternodeaddr: You have to put your VPS ip and the port. 
+masternodeprivkey: It's the string you got from the "masternode genkey" command before. 
+```
+- Save the file. In the same folder
+- Delete your wallet.dat (if it's an empty wallet there is no problem, else backup it then delete), the txlvldb folder and the blk00001.dat using WinSCP.
+- Keep WinSCP open, we gonna copy some files. 
+- Go back to your Windows dprice folder where you edited the first digitalprice.conf and drag the txlvldb folder and the blk00001.dat file to your .dprice VPS folder. 
 It will take 3-4 minutes to copy. When its done, we can start again the VPS wallet. 
 If your DigitalPrice folder path is /home/digitalprice then:
 ```
@@ -134,11 +135,16 @@ A string will be printed, something like that :
 ```
 "aa7c6c173f7b691e5a070a37aeazd23557636ad1b4b43680ace39d522e1d4493" "1"
 ``` 
-The first part is your transaction hash, the "1" is the index. Save them to be used next.
-Now we gonna create the masternode.conf file. In your wallet, click on the "Masternodes" tab, you will see the list of active masternodes. Click on My masternodes and on Create. A box appears: 
+The first part is your transaction hash, the "1" is the index. 
+- Save them to be used next.
+Now we gonna create the masternode.conf file. 
+- In your wallet, click on the "Masternodes" tab, you will see the list of active masternodes. 
+- Click on My masternodes and on Create. A box appears:
+```
 Alias : The name of your masternode, type mn01. 
 Address : The IP and the port you used in your VPS conf file, use the same. 
 Privkey : Your masternode privkey from the "masternode genkey" command. 
 TxHash : The first part of the "masternode outputs" command, in our example it's aa7c6c173f7b691e5a070a37aeazd23557636ad1b4b43680ace39d522e1d4493 
 OutputIndex : The last number, in our example it's 1. 
+```
 - Click Ok and wait few seconds. A new entry is created, its your masternode. It should say that your masternode is not on the list. To start it, unlock the wallet, press start and you are done!
