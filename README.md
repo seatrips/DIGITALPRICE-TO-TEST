@@ -1,4 +1,4 @@
-# DIGITALPRICE-TO-TEST
+# DIGITALPRICE-WORKING
 DigitalPriceMasternode
 
 Step-by-step guide to setup a masternode in a Linux VPS
